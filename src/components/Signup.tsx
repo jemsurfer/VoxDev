@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import supabase from "../utils/supabase";
+import supabase from "../lib/supabase";
 import { useNavigate } from "react-router";
 import { useCookies } from "react-cookie";
 

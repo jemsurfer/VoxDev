@@ -2,6 +2,7 @@ import '../styles/Home.css'
 
 //Cheetah - realtime, less accurate
 // import VoiceWidget from './VoiceWidgetCheetah'
+
 //Leopard - post-recording, accurate
 import VoiceWidget from './VoiceWidgetLeopard'
 
