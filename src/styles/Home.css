@@ -1,0 +1,20 @@
+div.home{
+    display:grid;
+    grid-template-columns: 0.5fr 2.5fr;
+}
+
+aside.sidebar {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 100%;
+    display: grid;
+}
+
+aside.sidebar > img {
+    max-width: 60%;
+    max-height: 60%;
+}
+
+main{
+    grid-column: 2;
+}
