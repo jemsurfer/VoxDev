@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.3",
     "@picovoice/cheetah-react": "^2.1.1",
     "@picovoice/leopard-react": "^2.0.3",
     "@picovoice/web-voice-processor": "^4.0.9",

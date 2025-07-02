@@ -14,10 +14,11 @@ export default function VoiceWidget() {
     stop,
   } = useCheetah();
 
+  const pv_key = import.meta.env.VITE_PV_TOKEN;
 
   async function initEngine() {
     await init(
-      "kVoTtq6oFTKhz5DlIWZ54hZ/UxqYC+hWId3eA6XN5XVFSFXF65Sl1w==",
+      pv_key,
       { publicPath: "./cheetah_params.pv" },
       { enableAutomaticPunctuation: true }
     );

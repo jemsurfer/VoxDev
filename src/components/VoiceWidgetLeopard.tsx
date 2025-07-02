@@ -14,12 +14,12 @@ export default function VoiceWidget() {
     isRecording,
   } = useLeopard();
 
-
+  const pv_key = import.meta.env.VITE_PV_TOKEN;
 
   useEffect(() => {
     async function initEngine() {
       await init(
-        "kVoTtq6oFTKhz5DlIWZ54hZ/UxqYC+hWId3eA6XN5XVFSFXF65Sl1w==",
+        pv_key,
         { publicPath: "./public/leopard_params.pv" },
         { enableAutomaticPunctuation: true }
       );
