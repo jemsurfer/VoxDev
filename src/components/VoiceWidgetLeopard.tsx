@@ -20,7 +20,7 @@ export default function VoiceWidget() {
     async function initEngine() {
       await init(
         pv_key,
-        { publicPath: "./public/leopard_params.pv" },
+        { publicPath: "./leopard_params.pv" },
         { enableAutomaticPunctuation: true }
       );
     };
@@ -47,8 +47,8 @@ export default function VoiceWidget() {
       {error && <p className="error-message">{error.toString()}</p>}
       {!isLoaded ? <p>Loading speech to text, please wait..</p> :      
         <button id="audio-record" onClick={toggleRecord} disabled={!isLoaded}>
-          {isRecording ? <img src="/public/VoxDev-clear.png" alt="VoxDev logo clear" /> : 
-          <img src="/public/VoxDev.png" alt="VoxDev logo" /> }
+          {isRecording ? <img src="/VoxDev-clear.png" alt="VoxDev logo clear" /> : 
+          <img src="/VoxDev.png" alt="VoxDev logo" /> }
         </button> 
       }
       <h3>Transcript:</h3>
