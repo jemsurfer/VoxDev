@@ -310,7 +310,7 @@ export default function useEsbuild(vfsFromUrl: VFS | null) {
     try {
       esbuildRef.current
         .initialize({
-          wasmURL: "/esbuild.wasm", // 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm' //
+          wasmURL: "../../node_modules/esbuild-wasm/esbuild.wasm",
         })
         .then(() => {
           isEsbuildInitializedRef.current = true;

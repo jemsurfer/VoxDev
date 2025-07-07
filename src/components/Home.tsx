@@ -30,21 +30,21 @@ function Home() {
         const vfs = files.filesById;
 
         const timeout = setTimeout(() => {
-        if (typeof versionRef.current !== "number") {
-            return;
-        }
-        versionRef.current = versionGeneratorRef.current.next().value;
-        createBundle(vfs, versionRef.current);
-    }, 300);
+            if (typeof versionRef.current !== "number") {
+                return;
+            }
+            versionRef.current = versionGeneratorRef.current.next().value;
+            createBundle(vfs, versionRef.current);
+        }, 300);
 
-    return () => clearTimeout(timeout);
-  }, [files.filesById]);
+        return () => clearTimeout(timeout);
+    }, [files.filesById]);
 
     return (
         <div className="home">
             <main>
                 <VoiceWidget />
-                <MiniBrowser />
+                <MiniBrowser output={output} />
             </main>
             <aside className="sidebar border">
                 <img src="/VoxDev.png" alt="VoxDev Logo"/>
