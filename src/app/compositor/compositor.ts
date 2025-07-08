@@ -1,8 +1,14 @@
 import supabase from "@/lib/supabase";
-import { appBoilerPlate } from "./boilerPlate";
+import { appBoilerPlate, layoutBoilerPlate } from "./boilerPlate";
+import { exampleComponent } from "@/test/components";
+import type { Routes } from "./interfaces";
 
-export async function compositeApp(pages: string[]) {
+export async function compositeApp(pages: Routes[]) {
   var appFile = new File([appBoilerPlate(pages)], "App.jsx");
+  writeFile(appFile, "src/App.jsx");
+
+  var layoutFile = new File([layoutBoilerPlate(pages)], "Layout.jsx");
+  writeFile(layoutFile, "src/Layout.jsx");
 
   const templatePaths = await templateFilePaths();
 
@@ -10,7 +16,19 @@ export async function compositeApp(pages: string[]) {
     await copyFile(`template/${path}`, path);
   }
 
-  writeFile(appFile, "src/App.jsx");
+  for (var page of pages) {
+    const fileName = `${page.name}.jsx`;
+
+    // TODO: Replace with the AI generated code
+    var pageFile = new File(
+      [formatComponentResponse(exampleComponent)],
+      fileName,
+    );
+
+    writeFile(pageFile, `src/pages/${fileName}`);
+  }
+
+  return true;
 }
 
 // No return type because cant get exposed path to FileObject
@@ -48,6 +66,16 @@ async function templateFilePaths(): Promise<string[]> {
   }
 
   return nested.flat(2);
+}
+
+export function formatComponentResponse(response: string) {
+  var formattedStr = response.split("\n");
+
+  //Remove the initial ``` at the top and bottom of response
+  formattedStr.splice(0, 1);
+  formattedStr.splice(formattedStr.length - 1, 1);
+
+  return formattedStr.join("\n");
 }
 
 async function writeFile(file: File, path: string): Promise<Object | null> {
