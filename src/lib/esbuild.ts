@@ -1,3 +1,4 @@
+//https://github.com/AyloSrd/reactplayground
 import useVFS, { ENTRY_POINT_JSX, type VFS } from "./vfs";
 import {type BundleError, createErrorString } from "./esbuild-tools";
 import * as esbuild from "esbuild-wasm";
@@ -310,7 +311,7 @@ export default function useEsbuild(vfsFromUrl: VFS | null) {
     try {
       esbuildRef.current
         .initialize({
-          wasmURL: "../../node_modules/esbuild-wasm/esbuild.wasm",
+          wasmURL:"./esbuild.wasm", //REMEMBER TO COPY ACROSS WHEN ESBUILD-WASM UPDATES
         })
         .then(() => {
           isEsbuildInitializedRef.current = true;

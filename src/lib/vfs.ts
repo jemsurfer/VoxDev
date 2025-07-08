@@ -1,11 +1,12 @@
+//https://github.com/AyloSrd/reactplayground
 import { useCallback, useReducer } from "react";
 
-enum ActionKind {
-    ADD_FILE = "ADD_FILE",
-    DELETE_FILE = "DELETE_FILE",
-    EDIT_FILE_CONTENT = "EDIT_FILE_CONTENT",
-    EDIT_FILE_NAME = "EDIT_FILE_NAME",
-    RESET_VFS = "RESET_VFS",
+const ActionKind = {
+    ADD_FILE: "ADD_FILE",
+    DELETE_FILE : "DELETE_FILE",
+    EDIT_FILE_CONTENT: "EDIT_FILE_CONTENT",
+    EDIT_FILE_NAME: "EDIT_FILE_NAME",
+    RESET_VFS: "RESET_VFS",
 }
 
 interface ActionPayload {
@@ -14,7 +15,7 @@ interface ActionPayload {
 }
 
 interface Action {
-  type: ActionKind;
+  type: string; //Uses ActionKind enum
   payload: ActionPayload;
 }
 

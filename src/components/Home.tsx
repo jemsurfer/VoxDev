@@ -1,31 +1,30 @@
 import { useEffect } from 'react';
 import useEsbuild from '../lib/esbuild';
 import '../styles/Home.css'
-import './MiniBrowser'
 
 //Cheetah - realtime, less accurate
 // import VoiceWidget from './VoiceWidgetCheetah'
 
 //Leopard - post-recording, accurate
 import VoiceWidget from './VoiceWidgetLeopard'
-import MiniBrowser from './MiniBrowser';
+import Iframe from './Iframe';
 
 function Home() {
-
     const {
-        addFile,
+        // addFile,
         createBundle,
-        deleteFile,
-        editFileContent,
-        editFileName,
+        // deleteFile,
+        // editFileContent,
+        // editFileName,
         files,
         output,
-        rawImports,
-        resetVFS,
+        // rawImports,
+        // resetVFS,
         versionGeneratorRef,
         versionRef,
     } = useEsbuild(null);
 
+    //Re-bundle every time the filesystem changes
     useEffect(()=>{
         const vfs = files.filesById;
 
@@ -44,7 +43,12 @@ function Home() {
         <div className="home">
             <main>
                 <VoiceWidget />
-                <MiniBrowser output={output} />
+                <Iframe
+                    onLoad={()=>{}}
+                    onPageRefresh={()=>{}}
+                    output={output}
+                    shouldRefresh={false}
+                />
             </main>
             <aside className="sidebar border">
                 <img src="/VoxDev.png" alt="VoxDev Logo"/>
