@@ -1,7 +1,7 @@
 import supabase from "@/lib/supabase";
 import { appBoilerPlate, layoutBoilerPlate } from "./boilerPlate";
 import { exampleComponent } from "@/test/components";
-import type { Routes } from "./interfaces";
+import type { Routes } from "@/models/Route";
 
 export async function compositeApp(pages: Routes[]) {
   var appFile = new File([appBoilerPlate(pages)], "App.jsx");

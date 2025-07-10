@@ -1,4 +1,4 @@
-import type { Routes } from "./interfaces";
+import type { Routes } from '@/models/Route';
 
 export function layoutBoilerPlate(routes: Routes[]): string {
   return `import { Outlet } from 'react-router'

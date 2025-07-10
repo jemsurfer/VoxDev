@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import useEsbuild from '../lib/esbuild';
-import '../styles/Home.css'
+import useEsbuild from '@/lib/esbuild';
+import '@/styles/Home.css'
 
 //Cheetah - realtime, less accurate
 // import VoiceWidget from './VoiceWidgetCheetah'
@@ -25,7 +25,7 @@ function Home() {
     } = useEsbuild(null);
 
     //Re-bundle every time the filesystem changes
-    useEffect(()=>{
+    useEffect(() => {
         const vfs = files.filesById;
 
         const timeout = setTimeout(() => {
@@ -44,14 +44,14 @@ function Home() {
             <main>
                 <VoiceWidget />
                 <Iframe
-                    onLoad={()=>{}}
-                    onPageRefresh={()=>{}}
+                    onLoad={() => { }}
+                    onPageRefresh={() => { }}
                     output={output}
                     shouldRefresh={false}
                 />
             </main>
             <aside className="sidebar border">
-                <img src="/VoxDev.png" alt="VoxDev Logo"/>
+                <img src="/VoxDev.png" alt="VoxDev Logo" />
             </aside>
         </div>
     )

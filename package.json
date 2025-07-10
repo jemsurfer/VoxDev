@@ -15,14 +15,11 @@
     "@picovoice/leopard-react": "^2.0.3",
     "@supabase/supabase-js": "^2.50.0",
     "axios": "^1.10.0",
-    "console-feed": "^3.8.0",
     "esbuild-wasm": "^0.25.5",
     "localforage": "^1.10.0",
     "react": "^19.1.0",
     "react-cookie": "^8.0.1",
-    "react-dom": "^19.1.0",
-    "react-router": "^7.6.3",
-    "styled-components": "^6.1.19"
+    "react-router": "^7.6.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

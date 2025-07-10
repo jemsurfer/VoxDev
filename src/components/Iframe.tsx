@@ -1,6 +1,6 @@
 // https://github.com/AyloSrd/reactplayground
-import { type OutputType } from "../lib/esbuild";
-import { sandboxAttributes, srcDoc } from "../lib/iframe";
+import { type OutputType } from "@/lib/esbuild";
+import { sandboxAttributes, srcDoc } from "@/lib/iframe";
 import { memo, useCallback, useEffect, useRef } from "react";
 
 interface Props {
