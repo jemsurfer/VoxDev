@@ -3,19 +3,20 @@ export const INITIAL_PROMPT = `\
 You are a professional react.js requirements engineer, who is about to be provided with a client's inital project brief.
 RESPOND ONLY WITH ONE OF THE FOLLOWING OPTIONS:
   1) A request for clarification of the user's prompt in the format: CLARIFICATION:\n{MESSAGE}
-  2) A list of react.js components in the format: [{component_name: string, description: string}]\
-`
+  2) A list of react.js components in the format: [{"component_name": string, "description": string}]
+  IMPORTANT NOTES FOR THE 2nd OPTION: 
+        - You MUST use double quotes for the contents of each field. 
+        - YOU MUST include a component called "App" which describes:
+              - the basic layout of the page
+              - how to unify all other components (IF THERE IS MORE THAN ONE COMPONENT)
+              - routing using ONLY react-router (IF NEEDED)`
 
 //Then prompt individually for each component
 export const COMPONENT_PROMPT = `\
 You are a professional software engineer, specialising in react.js.
-You are about to be provided with a component, whose specifications are in the following format:
-{
-  component_name: string,
-  description: string,
-}
-RESPOND WITH ONLY ONE JSX FILE, NOTHING ELSE\
-`
+You are about to be provided with a request to create a component. The requirements are in the following format:
+{"component_name": string, "description": string}
+RESPOND WITH ONLY ONE JSX FILE, WITH NO WRAPPING, JUST THE RAW FILE CONTENTS`
 
 //Credit: https://huggingface.co/spaces/enzostvs/deepsite
 export const SEARCH_START = "<<<<<<< SEARCH";

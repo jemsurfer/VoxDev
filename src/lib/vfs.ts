@@ -9,7 +9,7 @@ const ActionKind = {
     RESET_VFS: "RESET_VFS",
 }
 
-interface ActionPayload {
+export interface ActionPayload {
   target: string;
   content: string;
 }
@@ -119,7 +119,14 @@ function reducer(state: State, action: Action): State {
         action.payload.target === ENTRY_POINT_JSX ||
         state.fileList.includes(action.payload.target)
       ) {
-        return state;
+        //Overwrite file if trying to 'add' already existing file
+        return {
+          ...state, 
+          vfs: {
+            ...state.vfs,
+            [action.payload.target]: action.payload.content,
+          }
+        };
       }
       return {
         ...state,
@@ -132,6 +139,7 @@ function reducer(state: State, action: Action): State {
 
     case ActionKind.DELETE_FILE:
       if (action.payload.target === ENTRY_POINT_JSX) {
+        //Can't delete entry-point
         return state;
       }
       const deleteList = [...state.fileList].filter(

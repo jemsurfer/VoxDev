@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCheetah } from "@picovoice/cheetah-react";
 
-export default function VoiceWidget() {
-  const [transcript, setTranscript] = useState("");
-  
+interface Props {
+  transcript: string,
+  setTranscript: React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function VoiceWidget(props: Props) {
   const {
     result,
     isLoaded,
@@ -31,10 +34,10 @@ export default function VoiceWidget() {
       await start();
     }
   };
-  
+
   useEffect(() => {
     if (result !== null) {
-      setTranscript(prev => {
+      props.setTranscript(prev => {
         let newTranscript = prev + result.transcript
         if (result.isComplete) {
           newTranscript += " "
@@ -43,7 +46,7 @@ export default function VoiceWidget() {
       })
     }
   }, [result])
-  
+
   return (
     <div>
       {error && <p className="error-message">{error.toString()}</p>}
@@ -54,9 +57,9 @@ export default function VoiceWidget() {
       <label htmlFor="audio-record">Record audio to transcribe:</label>
       <button id="audio-record" onClick={toggleRecord} disabled={!isLoaded}>
         {isListening ? "Stop Listening" : "Start Listening"}
-      </button> 
+      </button>
       <h3>Transcript:</h3>
-      <p>{transcript}</p>
+      <p>{props.transcript}</p>
     </div>
   );
 }

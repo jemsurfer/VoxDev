@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLeopard } from "@picovoice/leopard-react";
 
-export default function VoiceWidget() {
-  const [transcript, setTranscript] = useState("");
+interface Props {
+  transcript: string,
+  setTranscript: React.Dispatch<React.SetStateAction<string>>
+}
 
+export default function VoiceWidget(props: Props) {
   const {
     result,
     isLoaded,
@@ -35,24 +38,23 @@ export default function VoiceWidget() {
       await startRecording();
     }
   };
-  
+
   useEffect(() => {
     if (result !== null) {
-      setTranscript(result.transcript)
+      props.setTranscript(result.transcript)
     }
   }, [result])
-  
+
   return (
     <div>
       {error && <p className="error-message">{error.toString()}</p>}
-      {!isLoaded ? <p>Loading speech to text, please wait..</p> :      
+      {!isLoaded ? <p>Loading speech to text, please wait..</p> :
         <button id="audio-record" onClick={toggleRecord} disabled={!isLoaded}>
-          {isRecording ? <img src="/VoxDev-clear.png" alt="VoxDev logo clear" /> : 
-          <img src="/VoxDev.png" alt="VoxDev logo" /> }
-        </button> 
+          {isRecording ? <img src="/VoxDev-clear.png" alt="VoxDev logo clear" /> :
+            <img src="/VoxDev.png" alt="VoxDev logo" />}
+        </button>
       }
-      <h3>Transcript:</h3>
-      <p>{transcript}</p>
+      <p>{props.transcript}</p>
     </div>
   );
 }

@@ -15,7 +15,6 @@ const Iframe = (props: Props) => {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-
   const handleIframeLoad = useCallback(() => {
     const iframeWindow = iframeRef?.current?.contentWindow;
 
