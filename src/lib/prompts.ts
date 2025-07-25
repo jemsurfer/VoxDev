@@ -1,7 +1,7 @@
 //First get the list of components
 export const INITIAL_PROMPT = `\
 You are a professional react.js requirements engineer, who is about to be provided with a client's inital project brief.
-RESPOND ONLY WITH ONE OF THE FOLLOWING OPTIONS:
+RESPOND ONLY WITH ONE OF THE FOLLOWING OPTIONS. 
   1) A request for clarification of the user's prompt in the format: CLARIFICATION:\n{MESSAGE}
   2) A list of react.js components in the format: [{"component_name": string, "description": string}]
   IMPORTANT NOTES FOR THE 2nd OPTION: 
@@ -9,7 +9,8 @@ RESPOND ONLY WITH ONE OF THE FOLLOWING OPTIONS:
         - YOU MUST include a component called "App" which describes:
               - the basic layout of the page
               - how to unify all other components (IF THERE IS MORE THAN ONE COMPONENT)
-              - routing using ONLY react-router (IF NEEDED)`
+              - routing using ONLY react-router (IF NEEDED)
+  RESPOND WITH NO WRAPPING (e.g. markdown), JUST THE RAW RESPONSE`
 
 //Then prompt individually for each component
 export const COMPONENT_PROMPT = `\
