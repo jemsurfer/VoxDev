@@ -1,21 +1,12 @@
-import { InferenceClient } from "@huggingface/inference";
-import { COMPONENT_PROMPT, INITIAL_PROMPT } from "@/lib/prompts";
-import type { ActionPayload } from "@/lib/vfs";
-
-const client = new InferenceClient(
-  import.meta.env.VITE_HF_TOKEN,
-);
+import type { ActionPayload } from "./vfs";
+import inference from "./inference-hf";
+import { INITIAL_PROMPT, COMPONENT_PROMPT } from "./prompts";
 
 export async function getComponentList(prompt: string): Promise<string | Object> {
-  const resp = await client.chatCompletion({
-    model: "deepseek-ai/DeepSeek-V3",
-    messages: [
-      { role: 'system', content: INITIAL_PROMPT },
-      { role: 'user', content: prompt }
-    ]
-  });
-
-  const body = resp.choices[0].message.content!;
+  const body = await inference([
+    {role: "system", content: INITIAL_PROMPT},
+    {role: "user", content: prompt}
+  ]);
 
   if (body.startsWith("CLARIFICATION:")) 
     return body.replace("CLARIFICATION:",'');
@@ -31,27 +22,13 @@ export async function createComponents(compList: any): Promise<Array<ActionPaylo
   const generatedComponents = new Array<ActionPayload>();
 
   for (let comp of compList) {
-    const resp = await client.chatCompletion({
-      model: "deepseek-ai/DeepSeek-V3",
-      messages: [
-        { role: 'system', content: COMPONENT_PROMPT }, { role: 'user', content: JSON.stringify(comp) } ]
-    });
+    const resp = await inference([
+      { role: 'system', content: COMPONENT_PROMPT },
+      { role: 'user', content: JSON.stringify(comp) } 
+    ]);
 
-    generatedComponents.push({target: comp.component_name + ".jsx", content: resp.choices[0].message.content!});
+    generatedComponents.push({target: comp.component_name + ".jsx", content: resp});
   }
 
   return generatedComponents;
-}
-
-//Send plain message (no system prompt)
-export async function sendMessage(message: string) {
-  const response = await client.chatCompletion({
-    model: "deepseek-ai/DeepSeek-V3",
-    messages: [{ role: "user", content: message }],
-    max_tokens: 256,
-  });
-
-  const body = response.choices[0].message.content;
-
-  return body;
 }

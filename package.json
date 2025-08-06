@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@huggingface/inference": "^4.4.0",
+    "@anthropic-ai/sdk": "^0.57.0",
+    "@huggingface/inference": "^4.6.1",
+    "@modelcontextprotocol/sdk": "^1.17.1",
     "@picovoice/cheetah-react": "^2.1.1",
     "@picovoice/leopard-react": "^2.0.3",
     "@supabase/supabase-js": "^2.50.0",
@@ -20,7 +22,8 @@
     "react": "^19.1.0",
     "react-cookie": "^8.0.1",
     "react-router": "^7.6.3",
-    "react-switch": "^7.1.0"
+    "react-switch": "^7.1.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

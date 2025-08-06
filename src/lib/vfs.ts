@@ -1,4 +1,5 @@
-//https://github.com/AyloSrd/reactplayground
+//Virtual Filesystem: store files in a key-value store
+//Credit: https://github.com/AyloSrd/reactplayground
 import { useCallback, useReducer } from "react";
 
 const ActionKind = {
@@ -119,14 +120,8 @@ function reducer(state: State, action: Action): State {
         action.payload.target === ENTRY_POINT_JSX ||
         state.fileList.includes(action.payload.target)
       ) {
-        //Overwrite file if trying to 'add' already existing file
-        return {
-          ...state, 
-          vfs: {
-            ...state.vfs,
-            [action.payload.target]: action.payload.content,
-          }
-        };
+        //If the file is already in the VFS, don't change the state, throw an error
+        throw new Error("File already exists");
       }
       return {
         ...state,
@@ -140,7 +135,10 @@ function reducer(state: State, action: Action): State {
     case ActionKind.DELETE_FILE:
       if (action.payload.target === ENTRY_POINT_JSX) {
         //Can't delete entry-point
-        return state;
+        throw new Error(`Can't delete the entry point (${ENTRY_POINT_JSX})`)
+      }
+      else if (!state.fileList.includes(action.payload.target)) {
+        throw new Error(`File not found: ${action.payload.target}`)
       }
       const deleteList = [...state.fileList].filter(
         (f) => f !== action.payload.target
@@ -155,7 +153,7 @@ function reducer(state: State, action: Action): State {
 
     case ActionKind.EDIT_FILE_CONTENT:
       if (state.vfs[action.payload.target] === undefined) {
-        return state;
+        throw new Error(`File not found: ${action.payload.target}`)
       }
       const editContentVfs = { ...state.vfs };
       editContentVfs[action.payload.target] = action.payload.content;
@@ -191,7 +189,7 @@ function reducer(state: State, action: Action): State {
       return defaultState;
 
     default:
-      throw new Error();
+      throw new Error(`Invalid action: ${action.type}`);
   }
 }
 

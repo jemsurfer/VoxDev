@@ -1,6 +1,6 @@
 // https://github.com/AyloSrd/reactplayground
 export const sandboxAttributes =
-  "allow-popups-to-escape-sandbox allow-scripts allow-popups allow-forms allow-pointer-lock allow-top-navigation allow-modals allow-same-origin";
+  "allow-scripts allow-popups allow-forms allow-pointer-lock allow-top-navigation allow-modals";
 
 export const srcDoc = /*html*/ `
 <html>

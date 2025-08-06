@@ -273,10 +273,14 @@ export default function useEsbuild(vfsFromUrl: VFS | null) {
 
   const createBundle = useCallback(async (vfs: VFS, prevVersion: number) => {
     if (
-      !isEsbuildInitializedRef.current ||
-      typeof versionRef.current !== "number"
+      !isEsbuildInitializedRef.current 
     ) {
-      return;
+      throw new Error("Esbuild not initialised");
+    }
+    if (typeof versionRef.current !== "number" || 
+      prevVersion < versionRef.current
+    ) {
+      throw new Error("Invalid version number");
     }
     try {
       const bundle = await esbuildRef.current.build({
@@ -291,17 +295,10 @@ export default function useEsbuild(vfsFromUrl: VFS | null) {
       });
       const bundleJSX = bundle?.outputFiles?.[0]?.text;
       const _imports = bundle?.metafile?.inputs;
-      if (prevVersion < versionRef.current) {
-        return;
-      }
       setBundleJSXText(bundleJSX);
       setBundleErr(null);
       setRawImports(_imports);
     } catch (err) {
-      if (prevVersion < versionRef.current) {
-        return;
-      }
-
       setBundleJSXText(null);
       setBundleErr(createErrorString(err as BundleError));
     }

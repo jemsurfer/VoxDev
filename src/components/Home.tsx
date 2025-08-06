@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import useEsbuild from '@/lib/esbuild';
+import { useState } from 'react';
 import '@/styles/Home.css'
 import Iframe from './Iframe';
 import Switch from "react-switch";
@@ -16,46 +15,13 @@ export default function Home() {
     const [message, setMessage] = useState("");
     const [voiceToggle, setVoiceToggle] = useState(true);
 
-    const {
-        addFile,
-        createBundle,
-        // deleteFile,
-        // editFileContent,
-        // editFileName,
-        files,
-        output,
-        // rawImports,
-        // resetVFS,
-        versionGeneratorRef,
-        versionRef,
-    } = useEsbuild(null);
-
-    //Re-bundle every time the filesystem changes
-    useEffect(() => {
-        const vfs = files.filesById;
-
-        const timeout = setTimeout(() => {
-            if (typeof versionRef.current !== "number") {
-                return;
-            }
-            versionRef.current = versionGeneratorRef.current.next().value;
-            createBundle(vfs, versionRef.current);
-        }, 300);
-
-        return () => clearTimeout(timeout);
-    }, [files.filesById]);
-
     async function handleSubmit() {
         const result = await getComponentList(transcript);
         if (typeof result === "string") {
             setMessage(result);
         } 
         else { 
-            const components = await createComponents(result);
-            for (const component of components) {
-                console.log(component.content)
-                addFile(component);
-            }
+            
         }
     }
 
